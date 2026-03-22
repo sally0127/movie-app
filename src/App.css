@@ -95,6 +95,55 @@ section h2 {
   width: 100%;
 }
 
+.detail-container {
+  display: flex;
+  gap: 40px;
+  padding: 48px;
+  max-width: 900px;
+  margin: 0 auto;
+  /* 置中 */
+  color: white;
+}
+
+.detail-container img {
+  width: 300px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-info h1 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.detail-info p {
+  color: #aaaaaa;
+  line-height: 1.6;
+}
+
+.detail-meta {
+  display: flex;
+  gap: 16px;
+  color: white;
+  font-size: 14px;
+}
+
+.back-link {
+  color: #aaaaaa;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.back-link:hover {
+  color: white;
+}
 
 
 
