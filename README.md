@@ -10,9 +10,9 @@
 - 水平捲動列表
 ## 使用技術
 
--React
--React Router
--Vite
+- React
+- React Router
+- Vite
 
 
 
