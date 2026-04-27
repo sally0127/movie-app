@@ -145,6 +145,35 @@ section h2 {
   color: white;
 }
 
+@media(max-width: 768px) {
+  .movie-grid {
+    display : grid;
+    grid-template-columns :repeat(2,1fr);
+    overflow-x:unset;
+    flex-wrap:wrap;
+  }
 
+  .movie-card {
+    width: 100%;
+  }
 
+  .detail-container{
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+  }
+
+  .detail-container img{
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .detail-info h1 {
+    font-size: 20px;
+  }
+
+  .detail-container{
+    text-align: left;
+  }
+}
 
