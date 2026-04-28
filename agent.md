@@ -12,17 +12,29 @@
 
 ## 檔案結構
 my-movie-app/
+
 ├── public/
+
 ├── src/
+
 │   ├── App.jsx
+
 │   ├── App.css
+
 │   ├── HomePage.jsx
+
 │   └── MovieDetailPage.jsx
+
 ├── .env
+
 ├── .gitignore
+
 ├── agent.md
+
 ├── index.html
+
 ├── package.json
+
 └── vite.config.js
 
 ## 開發規則
