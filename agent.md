@@ -17,13 +17,13 @@ my-movie-app/
 
 ├── src/
 
-│   ├── App.jsx
+│    ├── App.jsx
 
-│   ├── App.css
+│    ├── App.css
 
-│   ├── HomePage.jsx
+│    ├── HomePage.jsx
 
-│   └── MovieDetailPage.jsx
+│    └── MovieDetailPage.jsx
 
 ├── .env
 
