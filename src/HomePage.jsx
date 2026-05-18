@@ -8,6 +8,16 @@ export default function HomePage(){
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);         // 搜尋結果（保留）
   const [categories, setCategories] = useState({}); // 新增：首頁四個分類
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (!categories.popular?.length)return//資料還沒來就不執行
+    const timer = setInterval(() => {
+      setCurrentIndex(i => (i + 1) % categories.popular.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [categories.popular]);
+
   useEffect(() => {
     if (query === "") {
       // 呼叫四個分類 API
@@ -40,7 +50,22 @@ export default function HomePage(){
       <input className="search" value={query} onChange={e =>setQuery(e.target.value)} placeholder="search..."/>
       </div>
       {query === "" ? (
-        // 首頁：四個分類
+
+        <div>
+          {/*輪播Banner*/}
+          {categories.popular?.length > 0 && (
+            <div className ="banner">
+              <Link to={`/movie/${categories.popular[currentIndex].id}`}>
+              <img src={`https://image.tmdb.org/t/p/original${categories.popular[currentIndex].backdrop_path}`} />
+              <div className="banner-info">
+                <h2>{categories.popular[currentIndex].title}</h2>
+                <p>{categories.popular[currentIndex].overview}</p>
+              </div>
+              </Link>
+            </div>
+
+          )}
+        {/* 首頁：四個分類*/}
         <div>
           <section>
             <h2>熱門電影</h2>
@@ -126,9 +151,10 @@ export default function HomePage(){
               ))}
             </ul>
           </section>
+        </div>
       </div>
       ) : (
-        // 搜尋結果（跟原本一樣）
+        // 搜尋結果 
         <ul className="movie-grid">
           {movies.map(movie => (
             <li key={movie.id} className="movie-card">
@@ -149,5 +175,5 @@ export default function HomePage(){
         </ul>
       )}
     </div>
-  );
+  )
 }
