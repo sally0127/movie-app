@@ -13,7 +13,7 @@ export default function HomePage(){
   const [cinema,setCinema] = useState("")
   const [selectedMovie, setSelectedMovie] = useState("")
   const [date, setDate] = useState("")
-  const [showings, setShowings] = useState([])
+  const [showings, setShowings] = useState("")
   const [city,setCity] = useState("")
   const [people,setPeople] = useState("")
   const [startTime, setStartTime] = useState("")
@@ -61,6 +61,16 @@ export default function HomePage(){
       return
     }
     navigate("/booking")
+  }
+
+  const handleSeatSearch = () => {
+    if (!cinema || !selectedMovie || !date || !showings) {
+      alert("請填寫完整搜尋資訊");
+      return
+    }
+    //找到電影名稱
+    const movieTitle = categories.popular?.find(m => m.id === Number(selectedMovie))?.title
+    navigate("/seat", { state: { movie: movieTitle, date, cinema } });
   }
 
   return(
@@ -116,8 +126,11 @@ export default function HomePage(){
               <option value="14:00">14:00</option>
               <option value="18:00">18:00</option>
             </select>
-            <button onClick={handleBooking} className="btn">前往訂票</button>
-        </div>
+            <div className="booking-buttons">
+              <button onClick={handleBooking} className="btn">前往訂票</button>
+              <button onClick={handleSeatSearch} className="btn">搜尋空位</button>
+            </div>
+          </div>
         ) :(
           //快搜空位
           <div>
@@ -276,4 +289,4 @@ export default function HomePage(){
       )}
     </div>
   )
-}
+  }

@@ -204,6 +204,12 @@ section h2 {
   /* 橘紅色底線 */
 }
 
+.booking-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
 .booking-form select {
   width: 100%;
   padding: 10px 16px;
@@ -283,4 +289,57 @@ section h2 {
 .booking-page {
   color: white;
   padding: 48px;
+}
+
+.seat-page {
+  text-align: center;
+  color: white;
+  padding: 24px;
+}
+
+.seat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+}
+
+.seat-row {
+  display: flex;
+  gap: 8px;
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  color: white;
+}
+
+.seat.available {
+  background-color: #4fc3f7;
+}
+
+.seat.sold {
+  background-color: #e53935;
+}
+
+.seat.selected {
+  background-color: #66bb6a;
+}
+
+.seat-page h1 {
+  color: white;
+  text-align: center;
+}
+
+.seat-page p {
+  color: white;
+  text-align: center;
 }
