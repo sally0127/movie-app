@@ -42,6 +42,26 @@ export default function SeatPage() {
     ]
   ])
 
+  const handleSeatClick = (rowIndex,seatsIndex) => {
+    //找到被點擊的座位
+    const seat = seats[rowIndex][seatsIndex]
+    //判斷狀態
+    if (seat.status === "sold") return //已售出，不做任何事
+    //切換狀態
+    const newStatus = seat.status === "available" ? "selected" : "available"
+    //複製新陣列並更新(跑過所有座位，找到被點的那個，只改它，其他不動!)
+    const newSeats = seats.map((row,rIndex) =>
+      row.map((s,sIndex) => {
+        if (rIndex === rowIndex && sIndex === seatsIndex) {
+          return { ...s,status :newStatus}  
+        }
+        return s    
+      })
+    )
+  setSeats(newSeats)
+  }
+
+
 return(
   <div className="seat-page">
     <h1>{movie}</h1>
@@ -50,9 +70,12 @@ return(
     <div className="seat-container">
       {seats.map((row, rowIndex) => (
         <div key={rowIndex} className="seat-row">
-          {row.map((seat) => (
-            <div key={seat.id} className={`seat ${seat.status}`}>
-              {seat.id}
+          {row.map((seat,seatIndex) => (
+            <div 
+            key={seat.id} 
+            className={`seat ${seat.status}`}
+            onClick={() => handleSeatClick(rowIndex,seatIndex)}>
+            {seat.id}
             </div>
           ))}
         </div>
