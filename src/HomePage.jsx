@@ -60,7 +60,8 @@ export default function HomePage(){
       alert("請填寫完整訂票資訊");
       return
     }
-    navigate("/booking")
+    const movieTitle = categories.popular?.find(m => m.id === Number(selectedMovie))?.title
+    navigate("/booking",{state:{movie:movieTitle,date,cinema,showings}});
   }
 
   const handleSeatSearch = () => {
@@ -72,6 +73,27 @@ export default function HomePage(){
     const movieTitle = categories.popular?.find(m => m.id === Number(selectedMovie))?.title
     navigate("/seat", { state: { movie: movieTitle, date, cinema } });
   }
+
+  const announcements =[{
+    id:0, 
+    date:"2026/07/13",
+    content:"會員系統例行維護公告",
+  },{
+    id:1,
+    date:"2026/06/26",
+    content:"舊版官方APP 07/01終止服務",
+  },
+  {
+    id:2,
+    date:"2026/05/28",
+    content:"維護購票權益- 敬老愛心票領取贈品須知",
+  },
+  {
+    id: 3,
+    date:"2026/05/15",
+    content:"會員生日禮權益調整公告",
+  }
+];
 
   return(
     <div className="container">
@@ -93,7 +115,8 @@ export default function HomePage(){
               </Link>
           </div>
           )}
-
+      <div className="booking-announcements">
+        {/*左邊:訂票表單*/}
         <div className="booking-form">
           {/* 電影訂票表單 */}
           <div className="booking-tabs">
@@ -104,9 +127,9 @@ export default function HomePage(){
           <div>
             <select value={cinema} onChange={e => setCinema(e.target.value)}>
               <option value="">請選擇影城</option>
-              <option value="taipei cinema">台北信義威秀影城</option>
-              <option value="taichung cinema">台中大遠百威秀影城</option>
-              <option value="kaohsiung cinema">高雄大遠百威秀影城</option>
+              <option value="台北信義威秀影城">台北信義威秀影城</option>
+              <option value="台中大遠百威秀影城">台中大遠百威秀影城</option>
+              <option value="高雄大遠百威秀影城">高雄大遠百威秀影城</option>
             </select>
             <select value={selectedMovie} onChange={e => setSelectedMovie(e.target.value)}>
               <option value="">請選擇影片</option>
@@ -176,6 +199,17 @@ export default function HomePage(){
           </div>
           </div>
         )}
+        </div>
+        {/*右邊:最新公告*/}
+          <div className="announcement">
+            <h2>最新公告</h2>
+              {announcements.map(announcement => (
+                <div key={announcement.id} className="announcement-item">
+                  <span className="announcement-date">{announcement.date}</span>
+                  <span className="announcement-content">{announcement.content}</span>
+                  </div>
+              ))}
+          </div>
       </div>
 
         {/* 首頁：四個分類*/}

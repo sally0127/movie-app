@@ -187,6 +187,8 @@ section h2 {
   max-width: 600px;
   margin: 0 auto;
   margin-top: 24px;
+  width:500px;
+  flex-shrink: 0;
 }
 
 .booking-tabs button {
@@ -342,4 +344,45 @@ section h2 {
 .seat-page p {
   color: white;
   text-align: center;
+}
+
+.booking-announcements {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  padding: 24px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.announcement {
+  flex: 1;
+  color: white;
+}
+
+.announcement h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.announcement-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.announcement-date {
+  background-color: #1a5276;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.announcement-content {
+  font-size: 14px;
+  color: white;
 }
