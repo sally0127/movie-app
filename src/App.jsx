@@ -1,17 +1,24 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation} from 'react-router-dom'
 import HomePage from './HomePage'
 import MovieDetailPage from './MovieDetailPage'
 import BookingPage from './BookingPage'
 import SeatPage from './SeatPage'
+import Navbar from './Navbar'
+import BookingNavbar from './BookingNavbar'
 
 export default function App() {
+  const location = useLocation();
+  const isBookingPage = location.pathname ==="/booking" || location.pathname ==="/seat"
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/movie/:id" element={<MovieDetailPage />} />
-      <Route path="/booking" element={<BookingPage />} />
-      <Route path="/seat" element={<SeatPage />} />
-    </Routes>
+    <div>
+      {isBookingPage ? <BookingNavbar /> : <Navbar />}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/movie/:id" element={<MovieDetailPage />} />
+        <Route path="/booking" element={<BookingPage />} />
+        <Route path="/seat" element={<SeatPage />} />
+      </Routes>
+    </div>
   )
 }
 

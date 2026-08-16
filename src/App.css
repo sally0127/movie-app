@@ -386,3 +386,57 @@ section h2 {
   font-size: 14px;
   color: white;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background-color: #1a1a2e;
+  color: white;
+}
+
+.navbar-logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 24px;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.navbar-links a:hover {
+  color: #ff6432;
+}
+
+.BookingNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background-color: #1a1a2e;
+  color: white;
+}
+
+.BookingNavbar .bookingnavbar-links {
+  display: flex;
+  gap: 24px;
+}
+
+.BookingNavbar .bookingnavbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.BookingNavbar .bookingnavbar-links a:hover {
+  color: #ff6432;
+}
