@@ -440,3 +440,16 @@ section h2 {
 .BookingNavbar .bookingnavbar-links a:hover {
   color: #ff6432;
 }
+
+.searchseats-page {
+  color: white;
+  padding: 24px;
+}
+
+.searchseats-page h1 {
+  color: white;
+}
+
+.searchseats-page p {
+  color: white;
+}

@@ -65,13 +65,13 @@ export default function HomePage(){
   }
 
   const handleSeatSearch = () => {
-    if (!cinema || !selectedMovie || !date || !showings) {
+    if (!city || !selectedMovie || !date || !startTime || !endTime) {
       alert("請填寫完整搜尋資訊");
       return
     }
     //找到電影名稱
     const movieTitle = categories.popular?.find(m => m.id === Number(selectedMovie))?.title
-    navigate("/seat", { state: { movie: movieTitle, date, cinema } });
+    navigate("/search-seats", { state: { movie: movieTitle, city, date, starttime: startTime, endtime: endTime } });
   }
 
   const announcements =[{
@@ -159,9 +159,9 @@ export default function HomePage(){
           <div>
             <select value={city} onChange={e => setCity(e.target.value)}>
               <option value="">請選擇地區</option>
-              <option value="taipei">台北</option>
-              <option value="kaohsiung">台中</option>
-              <option value="taichung">高雄</option>
+              <option value="台北">台北</option>
+              <option value="台中">台中</option>
+              <option value="高雄">高雄</option>
             </select>
             <select value={selectedMovie} onChange={e => setSelectedMovie(e.target.value)}>
               <option value="">請選擇影片</option>
@@ -197,6 +197,7 @@ export default function HomePage(){
                 <option value="18:00">18:00</option>
             </select>   
           </div>
+          <button onClick={handleSeatSearch} className="btn">搜尋空位</button>
           </div>
         )}
         </div>
