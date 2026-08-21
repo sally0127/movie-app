@@ -302,7 +302,11 @@ export default function HomePage(){
         </div>
       </div>
       ) : (
-        // 搜尋結果 
+        <div>
+        {/* 搜尋結果*/} 
+        {query !== ""&&movies.length === 0 ?(
+          <p className="empty-state">找不到符合的電影</p>
+        ) : (
         <ul className="movie-grid">
           {movies.map(movie => (
             <li key={movie.id} className="movie-card">
@@ -323,5 +327,7 @@ export default function HomePage(){
         </ul>
       )}
     </div>
+      )}
+    </div>
   )
-  }
+}

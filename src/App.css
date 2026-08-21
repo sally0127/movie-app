@@ -453,3 +453,9 @@ section h2 {
 .searchseats-page p {
   color: white;
 }
+
+.empty-state {
+  color: white;
+  font-size: 18px;
+  padding: 24px;
+}
