@@ -50,9 +50,9 @@ export default function HomePage(){
           });
         });
     } else {
-      //API開始呼叫前 → true
-      setLoading(true)
       const timer = setTimeout(() =>{
+        //API開始呼叫前 → true
+        setLoading(true)
         // 呼叫搜尋 API
         fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${API_KEY}`)
           .then(r => r.json())
