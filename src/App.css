@@ -473,3 +473,21 @@ section h2 {
   text-align: center;
   padding: 24px;
 }
+
+@media (max-width: 768px) {
+  .booking-announcement {
+    flex-direction: column;  /* 改成上下排列 */
+  }
+  
+  .banner {
+    height: 250px;  /* 縮小高度 */
+  }
+  
+  .booking-form {
+    width: 100%;
+  }
+  
+  .announcement {
+    width: 100%;
+  }
+}
