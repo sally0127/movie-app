@@ -18,6 +18,7 @@
 
 ## 檔案結構
 
+```
 my-movie-app/
 ├── public/
 ├── src/
@@ -39,6 +40,7 @@ my-movie-app/
 ├── index.html
 ├── package.json
 └── vite.config.js
+```
 
 ## 開發規則
 
