@@ -20,6 +20,8 @@ export default function HomePage(){
   const [endTime, setEndTime] = useState("")
   const [activeTab,setActiveTab] = useState("booking") //紀錄目前哪個tab被點擊
   const navigate = useNavigate()
+  const [error,setError] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (!categories.popular?.length)return//資料還沒來就不執行
@@ -33,7 +35,7 @@ export default function HomePage(){
     if (query === "") {
       // 呼叫四個分類 API
       Promise.all([
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`),
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`), 
         fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`),
         fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`),
         fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`),
@@ -48,10 +50,24 @@ export default function HomePage(){
           });
         });
     } else {
-      // 呼叫搜尋 API
-      fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${API_KEY}`)
-        .then(r => r.json())
-        .then(data => setMovies(data.results));
+      //API開始呼叫前 → true
+      setLoading(true)
+      const timer = setTimeout(() =>{
+        // 呼叫搜尋 API
+        fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${API_KEY}`)
+          .then(r => r.json())
+          .then(data => {
+          setMovies(data.results)
+            setLoading(false)  //API完成 → false})
+          .catch(error => {
+            console.error("搜尋電影時發生錯誤:", error);
+            setError(true);
+            setLoading(false)  //API失敗也要 → false
+            });
+          }, 500); // 設定錯誤狀態
+        
+        return () => clearTimeout(timer);
+      })
     }
   }, [query]);
 
@@ -97,6 +113,7 @@ export default function HomePage(){
 
   return(
     <div className="container">
+      {error && <p className="error-message">載入失敗，請稍後再試 😢</p>}
       <div className="header">
       <input className="search" value={query} onChange={e =>setQuery(e.target.value)} placeholder="search..."/>
       </div>
@@ -303,6 +320,10 @@ export default function HomePage(){
       </div>
       ) : (
         <div>
+        {loading ? (
+          <p className="loading">載入中...</p> //loading時顯示這個
+        ) : (
+        <div>
         {/* 搜尋結果*/} 
         {query !== ""&&movies.length === 0 ?(
           <p className="empty-state">找不到符合的電影</p>
@@ -329,5 +350,7 @@ export default function HomePage(){
     </div>
       )}
     </div>
+      )}
+    </div>
   )
-}
+}             

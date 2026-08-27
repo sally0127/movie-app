@@ -459,3 +459,17 @@ section h2 {
   font-size: 18px;
   padding: 24px;
 }
+
+.error-message {
+  color: white;
+  font-size: 18px;
+  padding: 24px;
+  text-align: center;
+}
+
+.loading {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  padding: 24px;
+}
