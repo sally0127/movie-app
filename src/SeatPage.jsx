@@ -3,7 +3,7 @@ import {useLocation} from 'react-router-dom'
 export default function SeatPage() {
 
   const location = useLocation()
-  const {movie,date,cinema}= location.state || {}
+  const {cinema,movie,date,showings}= location.state || {}
   const [seats, setSeats] = useState([
     [
       { id: "A1", status: "available" },
@@ -64,9 +64,10 @@ export default function SeatPage() {
 
 return(
   <div className="seat-page">
-    <h1>{movie}</h1>
+    <h1>{cinema}</h1>
+    <p>{movie}</p>
     <p>{date}</p>
-    <p>{cinema}</p>
+    <p>{showings}</p>
     <div className="seat-container">
       {seats.map((row, rowIndex) => (
         <div key={rowIndex} className="seat-row">

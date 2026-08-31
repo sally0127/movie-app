@@ -80,6 +80,15 @@ export default function HomePage(){
     navigate("/booking",{state:{movie:movieTitle,date,cinema,showings}});
   }
 
+  const handleBookingSeatSearch = () => {
+    if (!cinema || !selectedMovie || !date || !showings) {
+      alert("請填寫完整搜尋資訊");
+      return
+    }
+    const movieTitle = categories.popular?.find(m => m.id === Number(selectedMovie))?.title
+    navigate("/seat", { state: { cinema, movie: movieTitle, date, showings } });
+  }
+
   const handleSeatSearch = () => {
     if (!city || !selectedMovie || !date || !startTime || !endTime) {
       alert("請填寫完整搜尋資訊");
@@ -168,7 +177,7 @@ export default function HomePage(){
             </select>
             <div className="booking-buttons">
               <button onClick={handleBooking} className="btn">前往訂票</button>
-              <button onClick={handleSeatSearch} className="btn">搜尋空位</button>
+                    <button onClick={handleBookingSeatSearch} className="btn">搜尋空位</button>
             </div>
           </div>
         ) :(
