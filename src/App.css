@@ -2,6 +2,12 @@ body{
 background-color:#0d0d0d;
 color:black;
 margin:0;
+overflow-x:hidden;
+}
+
+* {
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .movie-grid{
@@ -189,6 +195,7 @@ section h2 {
   margin-top: 24px;
   width:500px;
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .booking-tabs button {
@@ -475,7 +482,7 @@ section h2 {
 }
 
 @media (max-width: 768px) {
-  .booking-announcement {
+  .booking-announcements {
     flex-direction: column;  /* 改成上下排列 */
   }
   
@@ -487,7 +494,28 @@ section h2 {
     width: 100%;
   }
   
-  .announcement {
+  .booking-announcements {
     width: 100%;
   }
+
+  .navbar {
+    flex-wrap: wrap;
+    padding: 8px 16px;
+  }
+
+  .navbar-links {
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  .BookingNavbar {
+    flex-wrap: wrap;
+    padding: 8px 16px;
+  }
+
+  .bookingnavbar-links {
+    gap: 12px;
+    font-size: 12px;
+  }
+
 }
