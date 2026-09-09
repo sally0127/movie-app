@@ -517,5 +517,91 @@ section h2 {
     gap: 12px;
     font-size: 12px;
   }
-
 }
+
+.selected-info {
+  color: white;
+  text-align: center;
+  margin: 24px 0;
+  font-size: 18px;
+}
+
+.confirm-button {
+  display: block;
+  margin: 0 auto 40px auto;
+  background-color: #ff6432;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.confirm-button:disabled {
+  background-color: #555;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.confirm-button:hover:not(:disabled) {
+  background-color: #e5501a;
+}
+
+.booking-seat-page h1 {
+  color: white;
+  text-align: center;
+  font-size: 32px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.booking-seat-page p {
+  color: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+.order-summary-page {
+  min-height: 100vh;
+  padding: 32px 24px;
+  background-color: #0d0d0d;
+  color: #f5f5f5;
+}
+
+.order-summary-page h1 {
+  color: #ffffff;
+  text-align: center;
+  font-size: 32px;
+  margin: 0 0 24px;
+}
+
+.order-summary-info {
+  max-width: 560px;
+  margin: 0 auto 32px;
+  padding: 24px;
+  background-color: #1a1a1a;
+  border: 1px solid #333333;
+  border-radius: 8px;
+}
+
+.order-summary-info p {
+  color: #dddddd;
+  font-size: 18px;
+  margin: 12px 0;
+}
+
+.booking-complete {
+  color: #f5f5f5;
+  text-align: center;
+}
+
+.booking-complete h2 {
+  color: #ffffff;
+}
+
+.booking-complete p {
+  color: #cccccc;
+}
+

@@ -177,7 +177,7 @@ export default function HomePage(){
             </select>
             <div className="booking-buttons">
               <button onClick={handleBooking} className="btn">前往訂票</button>
-                    <button onClick={handleBookingSeatSearch} className="btn">搜尋空位</button>
+              <button onClick={handleBookingSeatSearch} className="btn">搜尋空位</button>
             </div>
           </div>
         ) :(

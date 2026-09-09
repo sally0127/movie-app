@@ -6,10 +6,12 @@ import SeatPage from './SeatPage'
 import Navbar from './Navbar'
 import BookingNavbar from './BookingNavbar'
 import SearchSeatsPage from './SearchSeatsPage'
+import BookingSeatPage from './BookingSeatPage'
+import OrderSummaryPage from './OrderSummaryPage'
 
 export default function App() {
   const location = useLocation();
-  const isBookingPage = location.pathname === "/booking" || location.pathname === "/seat" || location.pathname === "/search-seats"
+  const isBookingPage = location.pathname === "/booking" || location.pathname === "/seat" || location.pathname === "/booking-seat" || location.pathname === "/order-summary" || location.pathname === "/search-seats"
   return (
     <div>
       {isBookingPage ? <BookingNavbar /> : <Navbar />}
@@ -18,6 +20,8 @@ export default function App() {
         <Route path="/movie/:id" element={<MovieDetailPage />} />
         <Route path="/booking" element={<BookingPage />} />
         <Route path="/seat" element={<SeatPage />} />
+        <Route path="/booking-seat" element={<BookingSeatPage />} />
+        <Route path="/order-summary" element={<OrderSummaryPage />} />
         <Route path="/search-seats" element={<SearchSeatsPage />} />
       </Routes>
     </div>

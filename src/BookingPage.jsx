@@ -1,13 +1,15 @@
 import React,{useState} from 'react'
-import {useLocation} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 export default function BookingPage() {
 
   const location = useLocation()
+  const navigate = useNavigate()
   const {movie,date,cinema,showings}= location.state || {}
   const [paymentMethod, setPaymentMethod] = useState("online")
-  const [isBooked,setisBooked] = useState(false)
   const handleConfirm =() =>{
-    setisBooked(true)
+    navigate("/booking-seat", {
+      state: { movie, date, cinema, showings, paymentMethod }
+    })
   }
   return (
     <div className="booking-page">
@@ -39,15 +41,10 @@ export default function BookingPage() {
           <span>現場付款</span>
         </label>
       </div>
-      <button className="confirm-button" onClick={handleConfirm}>
-        確認訂票
+      <button className="confirm-button" onClick={handleConfirm}
+      >
+        下一步:選擇座位
       </button>
-      {isBooked&&(
-        <div>
-          <h2>✅ 訂票完成！</h2>
-          <p>感謝您的訂購，請至影城取票！</p>
-        </div>
-      )}
     </div>
   )
 }

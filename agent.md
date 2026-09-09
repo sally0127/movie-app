@@ -30,6 +30,8 @@ my-movie-app/
 │   └── MovieDetailPage.jsx
 │   └── BookingPage.jsx
 │   └── SeatPage.jsx
+│   └── BookingSeatPage.jsx
+│   └── OrderSummaryPage.jsx
 │   └── SearchSeatsPage.jsx
 │   └── Navbar.jsx
 │   └── BookingNavbar.jsx
@@ -72,19 +74,29 @@ my-movie-app/
 
 ### 訂票流程
 
--用useNavigate傳資料到訂票確認頁面
+-流程:HomePage(選影城/電影/日期/場次)→ BookingPage(選付款方式)→ BookingSeatPage(選座位)→ OrderSummaryPage(訂單摘要)→ 訂票完成
 
--用useLocation接收資料
+-用useNavigate傳資料到下一頁，用useLocation接收資料
 
--付款方式用radio button選擇
+-付款方式用radio button選擇（線上付款/現場付款）
+
+-選完座位後導向訂單摘要頁，顯示完整訂單明細，確認後才算真正訂票完成
+
 
 ### 座位選擇
 
--用2d array存座位資料
+-用2d array存座位資料，用兩層map()渲染座位圖
 
--用兩層map()渲染座位圖
+-BookingSeatPage(/booking-seat):唯一可點選座位的頁面，給「前往訂票」完整流程使用
 
--點擊切換座位狀態(available/selected/sold)
+  -用flat()+filter()算出已選座位清單
+
+  -確認訂票按鈕，按下後導向訂單摘要頁
+
+-SeatPage(/seat):純顯示，不可點選，給快速訂票tab的「搜尋空位」查詢用
+
+-已知限制:座位資料各自獨立（各自的 useState），尚未跨使用者同步，規劃未來改用 Firebase 等後端資料庫處理即時連動
+
 
 ### 導覽列
 
