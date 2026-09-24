@@ -16,6 +16,8 @@
 
 -CSS
 
+-Firebase(Firestore)
+
 ## 檔案結構
 
 ```
@@ -35,6 +37,7 @@ my-movie-app/
 │   └── SearchSeatsPage.jsx
 │   └── Navbar.jsx
 │   └── BookingNavbar.jsx
+│   └── firebase.js
 
 ├── .env
 ├── .gitignore
@@ -85,17 +88,22 @@ my-movie-app/
 
 ### 座位選擇
 
--用2d array存座位資料，用兩層map()渲染座位圖
+-用2d array存座位資料（結構為[{row: [...]}, {row: [...]}, ...]，因 Firestore 不支援巢狀陣列而調整），用兩層map()渲染座位圖
 
 -BookingSeatPage(/booking-seat):唯一可點選座位的頁面，給「前往訂票」完整流程使用
 
-  -用flat()+filter()算出已選座位清單
+  -用flatMap()+filter()算出已選座位清單
 
   -確認訂票按鈕，按下後導向訂單摘要頁
 
+  -座位跨使用者連動(進行中):透過Firebase Firestore的onSnapshot即時監聽座位文件，已驗證多人連動核心機制可運作（開兩個瀏覽器分頁測試，一邊點選座位，另一邊會即時同步更新，不需重新整理）
+
 -SeatPage(/seat):純顯示，不可點選，給快速訂票tab的「搜尋空位」查詢用
 
--已知限制:座位資料各自獨立（各自的 useState），尚未跨使用者同步，規劃未來改用 Firebase 等後端資料庫處理即時連動
+-已知限制:
+  1.所有已選座位顯示同一種顏色，無法區分「自己選的」與「別人選的」座位，規劃用 Firebase Authentication + UID 標記解決
+  2. Firestore Security Rules 目前為測試模式，尚未設定正式的讀寫權限規則
+  3.尚未處理多人同時搶同一座位的情境
 
 
 ### 導覽列
