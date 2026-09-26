@@ -8,6 +8,7 @@ import BookingNavbar from './BookingNavbar'
 import SearchSeatsPage from './SearchSeatsPage'
 import BookingSeatPage from './BookingSeatPage'
 import OrderSummaryPage from './OrderSummaryPage'
+import RegisterPage from  './RegisterPage'
 
 export default function App() {
   const location = useLocation();
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/booking-seat" element={<BookingSeatPage />} />
         <Route path="/order-summary" element={<OrderSummaryPage />} />
         <Route path="/search-seats" element={<SearchSeatsPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </div>
   )
