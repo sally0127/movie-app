@@ -10,5 +10,5 @@ const firebaseConfig = {
   appId: "1:410412030675:web:4f2e86eb5857c6b1f95226"
 };
 
-const app = initializeApp(firebaseConfig);  // ← 第一步：先初始化連線
+export const app = initializeApp(firebaseConfig);  // ← 第一步：先初始化連線
 export const db = getFirestore(app);         // ← 第二步：再用這個連線去拿 Firestore 功能
