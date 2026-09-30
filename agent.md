@@ -16,7 +16,7 @@
 
 -CSS
 
--Firebase(Firestore)
+-Firebase(Firestore、Authentication)
 
 ## 檔案結構
 
@@ -37,6 +37,9 @@ my-movie-app/
 │   └── SearchSeatsPage.jsx
 │   └── Navbar.jsx
 │   └── BookingNavbar.jsx
+│   └── RegisterPage.jsx
+│   └── LoginPage.jsx
+│   └── AuthContext.jsx
 │   └── firebase.js
 
 ├── .env
@@ -51,9 +54,9 @@ my-movie-app/
 
 -使用 fetch 串接 API，不使用 axios
 
--使用.then()處理非同步，加上.catch()錯誤處理
+-使用.then()處理非同步，加上.catch()錯誤處理(Firebase操作使用async/await + try...catch)
 
--API Key 存在環境變數 VITE_API_KEY
+-TMDB API Key 存在環境變數 VITE_API_KEY
 
 -使用原生CSS，不使用CSS framework
 
@@ -74,6 +77,22 @@ my-movie-app/
 -快速訂票&快搜空位表單(Controlled Components)
 
 -最新公告列表(假資料)
+
+### 會員登入
+
+-使用Firebase Authentication(Email/密碼登入)
+
+-AuthContext.jsx :用 Context 管理全站登入狀態，onAuthStateChanged 監聽登入狀態變化，其他頁面透過 useAuth() 取得 currentUser（含 uid、email）
+
+-main.jsx : 用 AuthProvider 包住整個 App，確保所有頁面都能讀到登入狀態
+
+-RegisterPage(/register)：createUserWithEmailAndPassword 註冊，失敗時顯示錯誤訊息
+
+-LoginPage(/login)：signInWithEmailAndPassword 登入，成功後導回首頁
+
+-Navbar：依 currentUser 切換顯示（未登入顯示登入/註冊連結，已登入顯示 Email 與登出按鈕），登出使用 signOut
+
+-尚未完成：表單驗證與中文錯誤訊息、路由保護
 
 ### 訂票流程
 
@@ -112,8 +131,12 @@ my-movie-app/
 
 -用三元運算子切換Navbar/BookingNavbar
 
+-Navbar依登入狀態切換登入/註冊與登出
+
 ## 注意
 
 -TMDB API 需要 api_key 參數
 
 -圖片網址格式：https://image.tmdb.org/t/p/w500{poster_path}
+
+-Firebase 的 firebaseConfig 目前直接寫在 firebase.js（apiKey 本身可公開，資料安全靠 Security Rules），之後可改用環境變數統一管理
