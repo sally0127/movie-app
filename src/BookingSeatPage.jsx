@@ -1,6 +1,6 @@
-import React, { useState ,useEffect } from 'react'
+import React, { useState ,useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import {doc,setDoc,onSnapshot} from "firebase/firestore"
+import {doc,setDoc,onSnapshot,runTransaction} from "firebase/firestore"
 import { db } from './firebase'
 import { useAuth } from './AuthContext'
 export default function BookingSeatPage() {
@@ -10,6 +10,7 @@ export default function BookingSeatPage() {
   const { currentUser } = useAuth()
   const { cinema, movie, date, showings,paymentMethod } = location.state || {}
   const [seats, setSeats] = useState([])
+  const bookingConfirmedRef = useRef(false)
 
   useEffect(() => {
     const seatDocRef = doc(db, "seats", "theater1")
@@ -65,6 +66,37 @@ export default function BookingSeatPage() {
     return () => unsubscribe()
   }, [])
 
+  useEffect(() => {
+    const userId = currentUser?.uid
+    if (!userId) return
+
+    return () => {
+      if (bookingConfirmedRef.current) return
+
+      const seatDocRef = doc(db, "seats", "theater1")
+      runTransaction(db, async (transaction) => {
+        const docSnap = await transaction.get(seatDocRef)
+        if (!docSnap.exists()) return
+
+        const currentSeats = docSnap.data().seats
+        const releasedSeats = currentSeats.map(rowObj => ({
+          row: rowObj.row.map(seat =>
+            seat.status === "selected" && seat.selectedBy === userId
+              ? { ...seat, status: "available", selectedBy: null }
+              : seat
+          )
+        }))
+        if (releasedSeats.some((rowObj, rowIndex) =>
+          rowObj.row.some((seat, seatIndex) =>
+            seat !== currentSeats[rowIndex].row[seatIndex]
+          )
+        )) {
+          transaction.update(seatDocRef, { seats: releasedSeats })
+        }
+      }).catch(error => console.error("無法釋放未確認的座位：", error))
+    }
+  }, [currentUser?.uid])
+
   const handleSeatClick = async (rowIndex, seatsIndex) => {
     if (!currentUser) {
       alert("請先登入")
@@ -103,14 +135,40 @@ export default function BookingSeatPage() {
   const selectedSeats = seats.flatMap(rowObj => rowObj.row).filter(
     seat => seat.status === "selected" && seat.selectedBy === currentUser?.uid
   )
-  const handleConfirmBooking = () => {
+  const handleConfirmBooking = async () => {
     if (selectedSeats.length === 0) {
       alert("請至少選擇一個座位")
       return
-    } 
+    }
+    const seatDocRef = doc(db, "seats", "theater1")
+    let bookedSeatIds = []
+    await runTransaction(db, async (transaction) => {
+      const docSnap = await transaction.get(seatDocRef)
+      if (!docSnap.exists()) return
+
+      const currentSeats = docSnap.data().seats
+      bookedSeatIds = currentSeats.flatMap(rowObj => rowObj.row)
+        .filter(seat => seat.status === "selected" && seat.selectedBy === currentUser.uid)
+        .map(seat => seat.id)
+      if (bookedSeatIds.length === 0) return
+
+      const soldSeats = currentSeats.map(rowObj => ({
+        row: rowObj.row.map(seat =>
+          seat.status === "selected" && seat.selectedBy === currentUser.uid
+            ? { ...seat, status: "sold" }
+            : seat
+        )
+      }))
+      transaction.update(seatDocRef, { seats: soldSeats })
+    })
+    if (bookedSeatIds.length === 0) {
+      alert("沒有可確認的已選座位")
+      return
+    }
+    bookingConfirmedRef.current = true
     navigate("/order-summary",{
       state: { cinema, movie, date, showings, paymentMethod,
-               seats:selectedSeats.map(seat => seat.id) 
+               seats: bookedSeatIds
        }
     })
   }
