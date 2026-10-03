@@ -120,6 +120,7 @@ my-movie-app/
   -座位歸屬：已登入使用者選座位時，selectedBy 寫入 currentUser.uid，自己選的顯示綠色（selected），別人選的顯示紅色（沿用 sold 樣式）且不可點選，未登入點擊座位會提示並導向 /login。
 
   -座位釋放機制:
+
     -使用者選了座位但未確認訂票就離開頁面時，用useEffect(依賴currentUser?.uid)的清理函式，透過runTransaction釋放該使用者選中、還沒確認的座位(改回available，selectedBy:null)
 
     -登出時，Navbar.jsx 的 handleLogout 在呼叫 signOut 之前，先用同樣的方式釋放座位（雙重保護，兩邊都會釋放，不會互相衝突或重複出錯）
@@ -130,8 +131,8 @@ my-movie-app/
 
 -已知限制:
   1. Firestore Security Rules 目前為測試模式，尚未設定正式的讀寫權限規則
-  
-  2.多人同時搶同一座位的情境已用runTransaction處理(讀取、判斷、寫入綁成不可分割的操作，避免原本setDoc寫入時後者覆蓋前者的問題)
+
+  2. 多人同時搶同一座位的情境已用runTransaction處理(讀取、判斷、寫入綁成不可分割的操作，避免原本setDoc寫入時後者覆蓋前者的問題)
 
 
 ### 導覽列
